@@ -1,0 +1,387 @@
+/* Base styling and theme colors */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --blue: #287bff;
+  --white: #fff;
+  --grey: #f5f5f5;
+  --black1: #222;
+  --black2: #999;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--grey);
+  min-height: 100vh;
+  overflow-x: hidden; /* Allow vertical scroll! */
+}
+
+/* Container holds sidebar and main content */
+.container {
+  position: relative;
+  width: 100%;
+}
+
+/* Sidebar Navigation */
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  background-color: var(--blue);
+  color: var(--white);
+  overflow: hidden;
+  transition: width 0.5s;
+  z-index: 1000;
+  border-left: 10px solid var(--blue);  /* extra space for hover effect curves */
+}
+.navigation.active {
+  width: 80px;  /* collapsed sidebar width */
+}
+/* Navigation menu list */
+.navigation ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.navigation ul li {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  /* Rounded inner (left) corners for highlight effect */
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.navigation ul li:nth-child(1) {
+  margin-bottom: 40px;
+  pointer-events: none;  /* disable brand item link */
+}
+.navigation ul li:hover,
+.navigation ul li.hovered {
+  background-color: var(--white);
+}
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+  color: var(--blue);
+}
+/* Navigation links */
+.navigation ul li a {
+  display: flex;
+  width: 100%;
+  text-decoration: none;
+  color: var(--white);
+  align-items: center;
+}
+.navigation ul li a .icon {
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 70px;
+  text-align: center;
+  font-size: 1.75em;
+}
+.navigation ul li a .title {
+  display: block;
+  padding: 0 10px;
+  height: 60px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
+/* Curved hover highlight effect on sidebar (white half-circles) */
+.navigation ul li:hover a::before,
+.navigation ul li.hovered a::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 35px 35px 0 10px var(--white);
+}
+.navigation ul li:hover a::after,
+.navigation ul li.hovered a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 35px -35px 0 10px var(--white);
+}
+
+/* Main content area */
+.main {
+  position: absolute; 
+  left: 300px;
+  width: calc(100% - 300px);
+  min-height: 100vh;
+  background: var(--white);
+  transition: left 0.5s, width 0.5s;
+}
+.main.active {
+  left: 80px;
+  width: calc(100% - 80px);
+}
+
+/* Top bar */
+.topbar {
+  
+  position: sticky;
+  top: 0;
+  z-index: 1010; /* Make sure it's above other content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  height: 60px;
+  background-color: #287bff;
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  font-size: 2.5em;
+  cursor: pointer;
+}
+.pageTitle {
+  font-weight: 500;
+  font-size: 40px;
+  margin-top: 10px;
+  color: #fff;
+}
+.user {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.user .material-icons {
+  font-size: 2.2em;
+  line-height: 50px;
+  text-align: center;
+  color: var(--white);
+}
+
+/* Dashboard Cards */
+.cardBox {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+.card {
+  background: var(--white);
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.card .numbers {
+  font-weight: 500;
+  font-size: 2.5em;
+  color: var(--blue);
+}
+.card .cardName {
+  font-size: 1.1em;
+  color: var(--black2);
+  margin-top: 5px;
+}
+.card .iconBx {
+  font-size: 3.3em;
+  color: var(--black2);
+}
+.card:hover {
+  background: var(--blue);
+}
+.card:hover .numbers,
+.card:hover .cardName,
+.card:hover .iconBx {
+  color: var(--white);
+}
+
+/* Details Section */
+.details {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+/* User Management Table Card */
+.details .userTable {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 350px;
+}
+.details .userTable .cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.details .userTable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.details .userTable table thead td {
+  font-weight: 600;
+}
+.details .userTable table tbody tr {
+  color: var(--black1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.details .userTable table tbody tr:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+.details .userTable table tr:last-child {
+  border: none;
+}
+.details .userTable table td {
+  padding: 10px;
+}
+.details .userTable table td:last-child {
+  text-align: end;
+}
+.details .userTable table td:nth-child(3) {
+  text-align: center;
+}
+
+/* Notifications Panel Card */
+.details .notificationsPanel {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  min-height: 350px;
+}
+.details .notificationsPanel .cardHeader {
+  margin-bottom: 5px;
+}
+.details .notificationsPanel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+}
+.details .notificationsPanel table tr:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+.details .notificationsPanel table tr td {
+  padding: 6px 10px;
+  vertical-align: middle;
+}
+.details .notificationsPanel table tr td h4 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2em;
+}
+.details .notificationsPanel table tr td span {
+  font-size: 14px;
+  color: var(--black2);
+}
+.details .notificationsPanel table tr:hover td span {
+  color: var(--white);
+}
+
+/* Action Icons (Edit/Delete) */
+.actions .material-icons {
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 1.2em;
+  color: var(--white);
+}
+.actions .material-icons:hover {
+  color: var(--blue);
+}
+
+/* Buttons (Add User, etc.) */
+.btn {
+  position: relative;
+  padding: 5px 10px;
+  background: var(--blue);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Ripple effect for buttons */
+.ripple {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+}
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Responsive Design Breakpoints */
+@media (max-width: 991px) {
+  .navigation { left: -300px; }        /* hide sidebar */
+  .navigation.active { left: 0; }      /* show sidebar when active */
+  .main { left: 0; width: 100%; }
+  .main.active { left: 300px; }        /* push content when sidebar open */
+  .cardBox { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .details { grid-template-columns: 1fr; } /* stack the two detail panels */
+  .userTable { overflow-x: auto; }         /* allow horizontal scroll for table */
+}
+@media (max-width: 480px) {
+  .cardBox { grid-template-columns: 1fr; } /* single column cards on mobile */
+  .cardHeader h2 { font-size: 20px; }
+  .user { min-width: 50px; }
+  .navigation {
+    width: 100%;
+    left: -100%;
+  }
+  .navigation.active {
+    width: 100%;
+    left: 0;
+  }
+  .toggle { z-index: 10001; }
+  .main.active .toggle {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    color: var(--white);
+  }
+}
+/* Reset toggle positioning when not active (for small screens) */
+@media (min-width: 320px) {
+  .main.active .toggle {
+    position: relative;
+    color: inherit;
+  }
+}
+.title-dashboad{
+  font-weight: bold;
+  font-size: 30px;
+  margin-left: 17px;
+  margin-top: 40px;
+}
